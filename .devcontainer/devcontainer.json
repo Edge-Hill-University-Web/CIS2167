@@ -1,0 +1,49 @@
+{
+	"name": "CIS2167",
+	"build": {
+		"dockerfile": "Dockerfile",
+		"context": "..",
+		"args": { 
+			// Update 'VARIANT' to pick a Python version: 3, 3.9, 3.8, 3.7, 3.6.
+			// Append -bullseye or -buster to pin to an OS version.
+			// Use -bullseye variants on local on arm64/Apple Silicon.
+			"VARIANT": "3.9",
+			// Options
+			"NODE_VERSION": "lts/*"
+		}
+	},
+		
+	// Configure tool-specific properties.
+	"customizations": {
+		// Configure properties specific to VS Code.
+		"vscode": {
+			// Set *default* container specific settings.json values on container create.
+			"settings": { 
+				"terminal.integrated.profiles.linux": {
+					"bash": {
+						"path": "/bin/bash"
+					}
+				},
+				"python.defaultInterpreterPath": "/usr/local/bin/python",
+				"python.languageServer": "Default",
+				"python.linting.enabled": true,
+				"python.linting.pylintEnabled": true
+			},
+			
+			// Add the IDs of extensions you want installed when the container is created.
+			"extensions": [
+				"ms-vsliveshare.vsliveshare",
+				"xdebug.php-debug",
+				"antfu.browse-lite",
+				"yzhang.markdown-all-in-one"
+			]
+		}
+	},
+
+	// Use 'postCreateCommand' to run commands after the container is created.
+	"postCreateCommand": "sudo apt update && sudo apt install libarchive-tools -y &&  sudo apt install php php-cli php-fpm php-json php-common php-mysql php-zip php-gd php-mbstring php-curl php-xml php-pear php-bcmath -y && php -r \"copy('https://getcomposer.org/installer', 'composer-setup.php');\" && php -r \"if (hash_file('sha384', 'composer-setup.php') === '55ce33d7678c5a611085589f1f3ddf8b3c52d662cd01d4ba75c0ee0459970c2200a51f492d557530c71c15d8dba01eae') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;\" && php composer-setup.php && php -r \"unlink('composer-setup.php');\" && sudo mv composer.phar /usr/local/bin/composer && composer require --dev phpunit/phpunit ^9 && touch ~/.bash_aliases && echo \"alias phpunit='/workspaces/vscode-automarker/vendor/bin/phpunit'\" >> ~/.bash_alias && echo \"alias mocha='/workspaces/vscode-automarker/node_modules/mocha/bin/mocha.js'\" >> ~/.bash_alias",
+
+	// Comment out to connect as root instead. More info: https://aka.ms/vscode-remote/containers/non-root
+	"remoteUser": "vscode"
+	
+}

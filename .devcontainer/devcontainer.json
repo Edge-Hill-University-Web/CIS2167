@@ -13,25 +13,39 @@
   "customizations": {
     "vscode": {
       "settings": {
+        "terminal.integrated.defaultProfile.linux": "bash",
         "terminal.integrated.profiles.linux": {
           "bash": {
             "path": "/bin/bash"
           }
         },
-        "python.defaultInterpreterPath": "/usr/local/bin/python",
-        "python.languageServer": "Default",
-        "python.linting.enabled": true,
-        "python.linting.pylintEnabled": true
+        "terminal.integrated.defaultProfile.osx": "bash",
+        "terminal.integrated.profiles.osx": {
+          "bash": {
+            "path": "/bin/bash"
+          }
+        },
+        "terminal.integrated.defaultProfile.windwows": "bash",
+        "terminal.integrated.profiles.windows": {
+          "bash": {
+            "path": "/bin/bash"
+          }
+        }
       },
-      "extensions": [
-        "ms-vsliveshare.vsliveshare",
-        "xdebug.php-debug",
-        "antfu.browse-lite",
-        "yzhang.markdown-all-in-one"
-      ],
-    }
+      "python.defaultInterpreterPath": "/usr/local/bin/python",
+      "python.languageServer": "Default",
+      "python.linting.enabled": true,
+      "python.linting.pylintEnabled": true
+    },
+    "extensions": [
+      "ms-vsliveshare.vsliveshare",
+      "xdebug.php-debug",
+      "antfu.browse-lite",
+      "yzhang.markdown-all-in-one"
+    ]
   },
-  "onCreateCommand": "sudo apt-get update && sudo apt -y upgrade && sudo apt-get update && sudo apt install libarchive-tools -y && sudo apt update && sudo apt-get install bash -y && sudo apt-get install lsb-release ca-certificates apt-transport-https software-properties-common curl gnupg  -y && sudo apt update && sudo apt install -y php && sudo apt install -y php-xdebug php-mbstring php-tokenizer php-xml php-xmlwriter && php -r \"copy('https://getcomposer.org/installer', 'composer-setup.php');\" && php -r \"if (hash_file('sha384', 'composer-setup.php') === 'e21205b207c3ff031906575712edab6f13eb0b361f2085f1f1237b7126d785e826a450292b6cfd1d64d92e6563bbde02') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;\" && php composer-setup.php php -r \"unlink('composer-setup.php');\" && sudo mv composer.phar /usr/local/bin/composer && rm composer-setup.php && composer global require --dev phpunit/phpunit ^9 && sudo apt update",
+  "onCreateCommand": "sudo apt-get update && sudo apt -y upgrade && sudo apt-get update && sudo apt install libarchive-tools -y && sudo apt update && sudo apt-get install bash -y && sudo apt-get install lsb-release ca-certificates apt-transport-https software-properties-common curl gnupg  -y && sudo apt update && sudo apt install -y php && sudo apt install -y php-xdebug php-mbstring php-tokenizer php-xml php-xmlwriter && php -r \"copy('https://getcomposer.org/installer', 'composer-setup.php');\" && php -r \"if (hash_file('sha384', 'composer-setup.php') === 'e21205b207c3ff031906575712edab6f13eb0b361f2085f1f1237b7126d785e826a450292b6cfd1d64d92e6563bbde02') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;\" && php composer-setup.php php -r \"unlink('composer-setup.php');\" && sudo mv composer.phar /usr/local/bin/composer && rm composer-setup.php && composer require --dev phpunit/phpunit ^9 && echo \"alias phpunit='/workspaces/CIS2167-Laravel-5/vendor/bin/phpunit'\" >> ~/.bashrc",
+  
   "runArgs": [
     "--name",
     "CIS2167_Laravel_5"

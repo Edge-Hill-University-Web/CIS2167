@@ -1,22 +1,17 @@
 {
-  "name": "CIS2167",
+  // Author: Dan Campbell
+  // Module : CIS2167
+  // Academic Year: 2023-2024
+  "name": "CIS2167-Laravel-5",
   "build": {
     "dockerfile": "Dockerfile",
     "context": "..",
     "args": {
-      // Update 'VARIANT' to pick a Python version: 3, 3.9, 3.8, 3.7, 3.6.
-      // Append -bullseye or -buster to pin to an OS version.
-      // Use -bullseye variants on local on arm64/Apple Silicon.
       "VARIANT": "3.9"
-      // Options
     }
   },
-
-  // Configure tool-specific properties.
   "customizations": {
-    // Configure properties specific to VS Code.
     "vscode": {
-      // Set *default* container specific settings.json values on container create.
       "settings": {
         "terminal.integrated.profiles.linux": {
           "bash": {
@@ -28,20 +23,18 @@
         "python.linting.enabled": true,
         "python.linting.pylintEnabled": true
       },
-
-      // Add the IDs of extensions you want installed when the container is created.
       "extensions": [
         "ms-vsliveshare.vsliveshare",
         "xdebug.php-debug",
         "antfu.browse-lite",
         "yzhang.markdown-all-in-one"
-      ]
+      ],
     }
   },
-
-  // Use 'postCreateCommand' to run commands after the container is created.
-  "postCreateCommand": "sudo apt update && sudo apt install libarchive-tools -y &&  sudo apt install php php-cli php-fpm php-json php-common php-mysql php-zip php-gd php-mbstring php-curl php-xml php-pear php-bcmath -y && php -r \"copy('https://getcomposer.org/installer', 'composer-setup.php');\" && php -r \"if (hash_file('sha384', 'composer-setup.php') === '55ce33d7678c5a611085589f1f3ddf8b3c52d662cd01d4ba75c0ee0459970c2200a51f492d557530c71c15d8dba01eae') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;\" && php composer-setup.php && php -r \"unlink('composer-setup.php');\" && sudo mv composer.phar /usr/local/bin/composer && composer require --dev phpunit/phpunit ^9 && touch ~/.bash_aliases && echo \"alias phpunit='/workspaces/vscode-automarker/vendor/bin/phpunit'\" >> ~/.bash_alias && echo \"alias mocha='/workspaces/vscode-automarker/node_modules/mocha/bin/mocha.js'\" >> ~/.bash_alias && cd ~ && curl -sL https://deb.nodesource.com/setup_14.x -o setup_14.sh && sudo sh ./setup_14.sh && sudo apt update && sudo apt install nodejs",
-  //
-  // Comment out to connect as root instead. More info: https://aka.ms/vscode-remote/containers/non-root
+  "onCreateCommand": "sudo apt-get update && sudo apt -y upgrade && sudo apt-get update && sudo apt install libarchive-tools -y && sudo apt update && sudo apt-get install bash -y && sudo apt-get install lsb-release ca-certificates apt-transport-https software-properties-common curl gnupg  -y && sudo apt update && sudo apt install -y php && sudo apt install -y php-xdebug php-mbstring php-tokenizer php-xml php-xmlwriter && php -r \"copy('https://getcomposer.org/installer', 'composer-setup.php');\" && php -r \"if (hash_file('sha384', 'composer-setup.php') === 'e21205b207c3ff031906575712edab6f13eb0b361f2085f1f1237b7126d785e826a450292b6cfd1d64d92e6563bbde02') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;\" && php composer-setup.php php -r \"unlink('composer-setup.php');\" && sudo mv composer.phar /usr/local/bin/composer && rm composer-setup.php && composer global require --dev phpunit/phpunit ^9 && sudo apt update",
+  "runArgs": [
+    "--name",
+    "CIS2167_Laravel_5"
+  ],
   "remoteUser": "vscode"
 }
